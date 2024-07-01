@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwepmqv4w2a01"]
+
+[ext_resource type="Script" path="res://scripts/Object/Ground.gd" id="1_sg8cc"]
+[ext_resource type="Texture2D" uid="uid://dybnj2l50ikp3" path="res://flappy-bird-assets-1.1.0/sprites/Object/base.png" id="2_r5bcn"]
+[ext_resource type="Texture2D" uid="uid://dgeax1b415k7x" path="res://flappy-bird-assets-1.1.0/sprites/Object/base1.png" id="3_bey1v"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uu8o7"]
+
+[node name="Ground" type="Area2D" groups=["game_over"]]
+position = Vector2(582, 0)
+collision_layer = 2
+script = ExtResource("1_sg8cc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(585, 541)
+shape = SubResource("WorldBoundaryShape2D_uu8o7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(570, 600)
+texture = ExtResource("2_r5bcn")
+region_enabled = true
+region_rect = Rect2(0, 0, 6048, 112)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(526, 850)
+scale = Vector2(0.945628, 3.60889)
+texture = ExtResource("3_bey1v")
+region_enabled = true
+region_rect = Rect2(0, 0, 6048, 112)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(585, 548)
+shape = SubResource("WorldBoundaryShape2D_uu8o7")

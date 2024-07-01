@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://blsb7rj33lhlx"]
+
+[ext_resource type="Script" path="res://scripts/animated_button.gd" id="1_4r8yx"]
+
+[node name="AnimatedButton" type="Button"]
+offset_left = 401.0
+offset_top = 215.0
+offset_right = 435.0
+offset_bottom = 240.0
+toggle_mode = true
+text = " "
+script = ExtResource("1_4r8yx")
+animationName = "flying"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

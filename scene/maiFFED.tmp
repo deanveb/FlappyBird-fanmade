@@ -1,0 +1,208 @@
+[gd_scene load_steps=18 format=3 uid="uid://cq56bsm2l8wlu"]
+
+[ext_resource type="PackedScene" uid="uid://c4bvvbpy1du24" path="res://scene/player.tscn" id="1_1eouo"]
+[ext_resource type="Script" path="res://scripts/Level/main.gd" id="1_yyca0"]
+[ext_resource type="PackedScene" uid="uid://ccpmaudfndxb2" path="res://scene/classicpipe.tscn" id="2_d37jq"]
+[ext_resource type="Texture2D" uid="uid://rgkufulbnacp" path="res://flappy-bird-assets-1.1.0/sprites/message.png" id="4_b8m1l"]
+[ext_resource type="FontFile" uid="uid://ivch7iw160v2" path="res://flappy-bird-assets-1.1.0/flappy-font.ttf" id="4_uxada"]
+[ext_resource type="PackedScene" uid="uid://cwepmqv4w2a01" path="res://scene/ground.tscn" id="7_88qd6"]
+[ext_resource type="Script" path="res://scripts/SaveAndLoad.gd" id="9_6usd6"]
+[ext_resource type="Texture2D" uid="uid://cmer67ssbaeu" path="res://flappy-bird-assets-1.1.0/sprites/background-day.png" id="9_cbr8y"]
+[ext_resource type="Script" path="res://scripts/UI/UI.gd" id="10_840nf"]
+[ext_resource type="AudioStream" uid="uid://bxw6sy8gnx8c1" path="res://flappy-bird-assets-1.1.0/audio/hit.ogg" id="10_eiab0"]
+[ext_resource type="AudioStream" uid="uid://cvugf0vevrj1d" path="res://flappy-bird-assets-1.1.0/audio/point.ogg" id="11_sr2xn"]
+[ext_resource type="PackedScene" uid="uid://bfktfmboc1gvu" path="res://scene/GameOver.tscn" id="11_tqq07"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_afml3"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ddqs7"]
+
+[sub_resource type="Animation" id="Animation_jxji2"]
+resource_name = "Fade"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nfaox"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aic31"]
+_data = {
+"Fade": SubResource("Animation_jxji2"),
+"RESET": SubResource("Animation_nfaox")
+}
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("UI_Node") groups=["game_over"]]
+script = ExtResource("1_yyca0")
+pipe_scene = ExtResource("2_d37jq")
+player_scene = ExtResource("1_1eouo")
+UI_Node = NodePath("UI")
+
+[node name="PipeSpawnRate" type="Timer" parent="."]
+
+[node name="killzone" type="Area2D" parent="."]
+position = Vector2(-196, 205)
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_afml3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="score_counter" type="VBoxContainer" parent="CanvasLayer"]
+z_index = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -4.0
+offset_right = 4.0
+offset_bottom = 14.0
+grow_horizontal = 2
+scale = Vector2(6, 6)
+alignment = 1
+
+[node name="score_display" type="Label" parent="CanvasLayer/score_counter"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_uxada")
+theme_override_font_sizes/font_size = 14
+text = "0"
+horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 325)
+
+[node name="Ground" parent="." instance=ExtResource("7_88qd6")]
+
+[node name="Sky" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sky"]
+position = Vector2(585, 1)
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_ddqs7")
+
+[node name="utilities" type="Node" parent="."]
+
+[node name="SaveAndLoad" type="Node" parent="utilities"]
+script = ExtResource("9_6usd6")
+
+[node name="start_position" type="Marker2D" parent="utilities"]
+unique_name_in_owner = true
+position = Vector2(593, 352)
+
+[node name="BackGroundHolder" type="Node2D" parent="."]
+
+[node name="BackGround1" type="Sprite2D" parent="BackGroundHolder"]
+z_index = -1
+texture_repeat = 2
+position = Vector2(588, 144)
+scale = Vector2(1.15217, 1.58739)
+texture = ExtResource("9_cbr8y")
+region_enabled = true
+region_rect = Rect2(0, 0, 100000, 521)
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="DeathSfx" type="AudioStreamPlayer2D" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("10_eiab0")
+
+[node name="Scored" type="AudioStreamPlayer2D" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("11_sr2xn")
+
+[node name="UI" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("10_840nf")
+
+[node name="Flash" type="CanvasLayer" parent="UI"]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/Flash"]
+libraries = {
+"": SubResource("AnimationLibrary_aic31")
+}
+
+[node name="ColorRect" type="ColorRect" parent="UI/Flash"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(12.8299, 7.49376)
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="GameOver" parent="UI" instance=ExtResource("11_tqq07")]
+visible = false
+layout_mode = 1
+offset_left = 556.0
+offset_top = 305.0
+offset_right = 556.0
+offset_bottom = 305.0
+
+[node name="Starting" type="CanvasLayer" parent="UI"]
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Starting"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -133.5
+offset_right = 92.0
+offset_bottom = 133.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Starting/MarginContainer"]
+layout_mode = 2
+
+[node name="start_message" type="TextureRect" parent="UI/Starting/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("4_b8m1l")
+
+[node name="PauseMenu" type="CanvasLayer" parent="UI"]
+
+[node name="ColorRect" type="ColorRect" parent="UI/PauseMenu"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.442911, 0.442911, 0.442911, 1)
+
+[connection signal="timeout" from="PipeSpawnRate" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="killzone" to="." method="_on_killzone_area_entered"]
+[connection signal="set_process" from="UI/GameOver" to="." method="_on_game_over_set_process"]

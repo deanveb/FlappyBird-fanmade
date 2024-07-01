@@ -1,0 +1,103 @@
+[gd_scene load_steps=13 format=3 uid="uid://cq56bsm2l8wlu"]
+
+[ext_resource type="PackedScene" uid="uid://c4bvvbpy1du24" path="res://scene/Game Object/player.tscn" id="1_1eouo"]
+[ext_resource type="Script" path="res://scripts/Level/main.gd" id="1_yyca0"]
+[ext_resource type="PackedScene" uid="uid://ccpmaudfndxb2" path="res://scene/Game Object/classicpipe.tscn" id="2_d37jq"]
+[ext_resource type="FontFile" uid="uid://ivch7iw160v2" path="res://flappy-bird-assets-1.1.0/flappy-font.ttf" id="4_uxada"]
+[ext_resource type="PackedScene" uid="uid://cwepmqv4w2a01" path="res://scene/Game Object/ground.tscn" id="7_88qd6"]
+[ext_resource type="Texture2D" uid="uid://cmer67ssbaeu" path="res://flappy-bird-assets-1.1.0/sprites/Background/background-day.png" id="9_cbr8y"]
+[ext_resource type="AudioStream" uid="uid://bxw6sy8gnx8c1" path="res://flappy-bird-assets-1.1.0/audio/hit.ogg" id="10_eiab0"]
+[ext_resource type="PackedScene" uid="uid://n6wqbtqqyobo" path="res://scene/UI/flash.tscn" id="11_ket48"]
+[ext_resource type="AudioStream" uid="uid://cvugf0vevrj1d" path="res://flappy-bird-assets-1.1.0/audio/point.ogg" id="11_sr2xn"]
+[ext_resource type="PackedScene" uid="uid://bfktfmboc1gvu" path="res://scene/UI/GameOver.tscn" id="11_tqq07"]
+[ext_resource type="PackedScene" uid="uid://b102andxmcl07" path="res://scene/UI/starting.tscn" id="13_kubox"]
+[ext_resource type="PackedScene" uid="uid://dlx5ge0log3um" path="res://scene/UI/pause_menu.tscn" id="14_wqh4g"]
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("UI_Node") groups=["game_over"]]
+script = ExtResource("1_yyca0")
+pipe_scene = ExtResource("2_d37jq")
+player_scene = ExtResource("1_1eouo")
+UI_Node = NodePath("UI")
+
+[node name="PipeSpawnRate" type="Timer" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 325)
+
+[node name="Ground" parent="." instance=ExtResource("7_88qd6")]
+
+[node name="Utilities" type="Node" parent="."]
+
+[node name="StartPosition" type="Marker2D" parent="Utilities"]
+unique_name_in_owner = true
+position = Vector2(576, 395)
+
+[node name="BackGroundHolder" type="Node2D" parent="."]
+
+[node name="BackGround1" type="Sprite2D" parent="BackGroundHolder"]
+z_index = -1
+texture_repeat = 2
+position = Vector2(588, 144)
+scale = Vector2(1.15217, 1.58739)
+texture = ExtResource("9_cbr8y")
+region_enabled = true
+region_rect = Rect2(0, 0, 100000, 521)
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="DeathSfx" type="AudioStreamPlayer2D" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("10_eiab0")
+
+[node name="Scored" type="AudioStreamPlayer2D" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("11_sr2xn")
+
+[node name="UI" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Flash" parent="UI" instance=ExtResource("11_ket48")]
+
+[node name="GameOver" parent="UI" instance=ExtResource("11_tqq07")]
+visible = false
+layout_mode = 1
+offset_left = 556.0
+offset_top = 305.0
+offset_right = 556.0
+offset_bottom = 305.0
+
+[node name="Starting" parent="UI" instance=ExtResource("13_kubox")]
+
+[node name="PauseMenu" parent="UI" instance=ExtResource("14_wqh4g")]
+
+[node name="Score" type="CanvasLayer" parent="UI"]
+
+[node name="score_counter" type="VBoxContainer" parent="UI/Score"]
+unique_name_in_owner = true
+z_index = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -4.0
+offset_right = 4.0
+offset_bottom = 14.0
+grow_horizontal = 2
+scale = Vector2(6, 6)
+alignment = 1
+
+[node name="score_display" type="Label" parent="UI/Score/score_counter"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_uxada")
+theme_override_font_sizes/font_size = 14
+text = "0"
+horizontal_alignment = 1
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(650, 100)
+
+[connection signal="timeout" from="PipeSpawnRate" to="." method="_on_timer_timeout"]
+[connection signal="set_process" from="UI/GameOver" to="." method="_on_game_over_set_process"]

@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://25pjsct46cna"]
+
+[ext_resource type="Texture2D" uid="uid://3e476cemo6k8" path="res://flappy-bird-assets-1.1.0/animation/spritesheet2.png" id="1_7g675"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cugi"]
+atlas = ExtResource("1_7g675")
+region = Rect2(36, 0, 36, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aetyi"]
+atlas = ExtResource("1_7g675")
+region = Rect2(0, 26, 36, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrdtb"]
+atlas = ExtResource("1_7g675")
+region = Rect2(0, 0, 36, 26)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cugi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aetyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrdtb")
+}],
+"loop": true,
+"name": &"Flying",
+"speed": 5.0
+}]

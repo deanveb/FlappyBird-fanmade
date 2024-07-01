@@ -1,0 +1,143 @@
+[gd_scene load_steps=7 format=3 uid="uid://b102andxmcl07"]
+
+[ext_resource type="Script" path="res://scene/UI/starting.gd" id="1_0jwsm"]
+[ext_resource type="Texture2D" uid="uid://rgkufulbnacp" path="res://flappy-bird-assets-1.1.0/sprites/message.png" id="1_2ni1d"]
+[ext_resource type="FontFile" uid="uid://ivch7iw160v2" path="res://flappy-bird-assets-1.1.0/flappy-font.ttf" id="3_kfv16"]
+[ext_resource type="Texture2D" uid="uid://cywe3q7g50br4" path="res://flappy-bird-assets-1.1.0/sprites/bluebird-upflap.png" id="5_rcy08"]
+[ext_resource type="Texture2D" uid="uid://bheot2ibcaj73" path="res://flappy-bird-assets-1.1.0/sprites/redbird-upflap.png" id="6_w2lmu"]
+[ext_resource type="Texture2D" uid="uid://dqno5a2glpj88" path="res://flappy-bird-assets-1.1.0/sprites/yellowbird-upflap.png" id="7_x1c2y"]
+
+[node name="Starting" type="CanvasLayer" node_paths=PackedStringArray("firstMenu")]
+script = ExtResource("1_0jwsm")
+firstMenu = NodePath("Menu")
+
+[node name="Menu" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -133.5
+offset_right = 92.0
+offset_bottom = 133.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer"]
+layout_mode = 2
+
+[node name="start_message" type="TextureRect" parent="Menu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("1_2ni1d")
+
+[node name="Setting2" type="Button" parent="."]
+offset_left = 97.0
+offset_top = 59.0
+offset_right = 157.0
+offset_bottom = 81.0
+mouse_filter = 2
+text = "setting"
+
+[node name="Setting" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_right = -769.0
+offset_bottom = -430.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Main" type="VBoxContainer" parent="Setting"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = -37.0
+offset_right = 49.5
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="General" type="Button" parent="Setting/Main"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_kfv16")
+theme_override_font_sizes/font_size = 14
+text = "General"
+
+[node name="Graphic" type="Button" parent="Setting/Main"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_kfv16")
+theme_override_font_sizes/font_size = 14
+text = "Graphic"
+
+[node name="Music&Sound" type="Button" parent="Setting/Main"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_kfv16")
+theme_override_font_sizes/font_size = 14
+text = "Music&Sound"
+
+[node name="General" type="VBoxContainer" parent="Setting"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+offset_left = 94.5
+offset_top = 72.0
+offset_right = 290.5
+offset_bottom = 146.0
+
+[node name="Skin" type="HBoxContainer" parent="Setting/General"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Setting/General/Skin"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Change Skin"
+
+[node name="BlueBird" type="TextureButton" parent="Setting/General/Skin"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("5_rcy08")
+
+[node name="RedBird" type="TextureButton" parent="Setting/General/Skin"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("6_w2lmu")
+
+[node name="YellowBird" type="TextureButton" parent="Setting/General/Skin"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("7_x1c2y")
+
+[node name="Back" type="Button" parent="Setting/General"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Back"
+
+[connection signal="button_down" from="Setting2" to="." method="_on_menu_button_down" binds= ["Main"]]
+[connection signal="button_down" from="Setting/Main/General" to="." method="_on_menu_button_down" binds= ["General"]]

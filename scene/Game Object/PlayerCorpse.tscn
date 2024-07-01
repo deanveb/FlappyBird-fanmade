@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://byknixxsqbjod"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d4xld"]
+size = Vector2(43.4704, 46.0191)
+
+[node name="Corpse" type="RigidBody2D"]
+z_index = 1
+rotation = 0.234851
+scale = Vector2(1, 1.076)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-0.0445786, 0.907936)
+rotation = 1.5708
+scale = Vector2(1.37305, 1.39024)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.110446, 0.910777)
+rotation = 1.5708
+scale = Vector2(1.081, 0.785537)
+shape = SubResource("RectangleShape2D_d4xld")
