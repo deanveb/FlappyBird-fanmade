@@ -6,10 +6,13 @@ func _ready():
 	GlobalSetting.MenuStack.push_back("%" + menuName)
 
 func _hide():
+	$Menu/Fade.play("fadeOut")
+	await $Menu/Fade.animation_finished
 	for item in get_children():
 		item.hide()
 
 func _show():
+	$Menu/Fade.play("fadeIn")
 	for item in get_children():
 		item.show()
 
