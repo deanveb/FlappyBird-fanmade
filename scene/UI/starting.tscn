@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b102andxmcl07"]
+[gd_scene load_steps=16 format=3 uid="uid://b102andxmcl07"]
 
 [ext_resource type="Script" path="res://scripts/UI/starting.gd" id="1_h8j7t"]
 [ext_resource type="Texture2D" uid="uid://rgkufulbnacp" path="res://flappy-bird-assets-1.1.0/sprites/UI/message.png" id="2_y43cr"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c22dk6bhp144q" path="res://flappy-bird-assets-1.1.0/sprites/Character/yellowbird-upflap-with-outline.png" id="7_3nkyq"]
 [ext_resource type="Texture2D" uid="uid://dqno5a2glpj88" path="res://flappy-bird-assets-1.1.0/sprites/Character/yellowbird-upflap.png" id="7_erwer"]
 [ext_resource type="Texture2D" uid="uid://b8gvtb7bolek1" path="res://flappy-bird-assets-1.1.0/sprites/Character/bluebird-upflap-with-outline.png" id="9_ybuxn"]
+[ext_resource type="Script" path="res://scripts/UI/Resolution.gd" id="11_ka5wb"]
 [ext_resource type="Texture2D" uid="uid://bna63gkf05l1j" path="res://flappy-bird-assets-1.1.0/sprites/Character/redbird-upflap-with-outline.png" id="12_rdadm"]
 
 [sub_resource type="Animation" id="Animation_4cbwv"]
@@ -24,21 +25,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_x7vhl"]
-resource_name = "fade"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_esnua"]
@@ -57,6 +43,21 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_x7vhl"]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gsu4j"]
 _data = {
 "RESET": SubResource("Animation_4cbwv"),
@@ -70,6 +71,7 @@ menuName = "Menu"
 
 [node name="Menu" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
+visible = false
 scale = Vector2(1.5, 1.5)
 transform = Transform2D(1.5, 0, 0, 1.5, 0, 0)
 
@@ -173,7 +175,6 @@ text = "Back"
 
 [node name="General" type="VBoxContainer" parent="Setting/Control"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -212,6 +213,21 @@ layout_mode = 2
 texture_normal = ExtResource("5_5pwy8")
 texture_hover = ExtResource("12_rdadm")
 texture_disabled = ExtResource("12_rdadm")
+
+[node name="Resolution" type="HBoxContainer" parent="Setting/Control/General"]
+layout_mode = 2
+script = ExtResource("11_ka5wb")
+
+[node name="Label" type="Label" parent="Setting/Control/General/Resolution"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Resolution"
+
+[node name="OptionButton" type="OptionButton" parent="Setting/Control/General/Resolution"]
+layout_mode = 2
+item_count = 1
+popup/item_0/text = ""
+popup/item_0/id = 0
 
 [node name="Back" type="Button" parent="Setting/Control/General"]
 layout_mode = 2
