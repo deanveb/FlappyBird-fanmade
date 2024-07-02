@@ -24,6 +24,7 @@ func updatetext(score : int, highscore : int):
 
 
 func _on_retry_button_button_down():
+	$"../../BackGroundHolder".get_node("Timer").stop()
 	get_node("..").get_node("Corpse").queue_free()
 	%ButtonSound.play()
 	$".".hide() 

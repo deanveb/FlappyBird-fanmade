@@ -14,6 +14,7 @@ func _ready():
 #new game
 func _unhandled_key_input(_event):
 	if Input.is_action_just_pressed("jump"):
+		$BackGroundHolder.get_node("Timer").start()
 		$PipeSpawnRate.start()
 		UI_Node.get_node("Starting")._hide()
 		var player = player_scene.instantiate()
@@ -42,7 +43,7 @@ func _on_player_end_trigger():
 	%DeathSfx.play()
 	get_tree().call_group("game_over","pause")
 	$PipeSpawnRate.stop()
-	remove_child($player)
+	$player.queue_free()
 	GameOverUI.show()
 	var content : Dictionary = SaveAndLoad.Load()
 	if content["HighScore"] <= score:

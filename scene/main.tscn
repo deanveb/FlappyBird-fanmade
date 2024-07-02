@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://scripts/Level/main.gd" id="1_yyca0"]
 [ext_resource type="PackedScene" uid="uid://ccpmaudfndxb2" path="res://scene/Game Object/classicpipe.tscn" id="2_d37jq"]
 [ext_resource type="FontFile" uid="uid://ivch7iw160v2" path="res://flappy-bird-assets-1.1.0/flappy-font.ttf" id="4_uxada"]
+[ext_resource type="PackedScene" uid="uid://c1g4oyvarrdw2" path="res://scene/Game Object/back_ground_holder.tscn" id="5_p2sil"]
 [ext_resource type="PackedScene" uid="uid://cwepmqv4w2a01" path="res://scene/Game Object/ground.tscn" id="7_88qd6"]
-[ext_resource type="Texture2D" uid="uid://cmer67ssbaeu" path="res://flappy-bird-assets-1.1.0/sprites/Background/background-day.png" id="9_cbr8y"]
 [ext_resource type="AudioStream" uid="uid://bxw6sy8gnx8c1" path="res://flappy-bird-assets-1.1.0/audio/hit.ogg" id="10_eiab0"]
 [ext_resource type="PackedScene" uid="uid://n6wqbtqqyobo" path="res://scene/UI/flash.tscn" id="11_ket48"]
 [ext_resource type="AudioStream" uid="uid://cvugf0vevrj1d" path="res://flappy-bird-assets-1.1.0/audio/point.ogg" id="11_sr2xn"]
@@ -32,16 +32,7 @@ position = Vector2(576, 325)
 unique_name_in_owner = true
 position = Vector2(576, 395)
 
-[node name="BackGroundHolder" type="Node2D" parent="."]
-
-[node name="BackGround1" type="Sprite2D" parent="BackGroundHolder"]
-z_index = -1
-texture_repeat = 2
-position = Vector2(588, 144)
-scale = Vector2(1.15217, 1.58739)
-texture = ExtResource("9_cbr8y")
-region_enabled = true
-region_rect = Rect2(0, 0, 100000, 521)
+[node name="BackGroundHolder" parent="." instance=ExtResource("5_p2sil")]
 
 [node name="Audio" type="Node" parent="."]
 
