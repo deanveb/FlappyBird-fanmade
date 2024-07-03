@@ -1,4 +1,7 @@
 extends HBoxContainer
+
+#FIXME: drop menu font, fullscreen resolution
+@onready var option_button = $OptionButton
 var Resolutions : Dictionary = {
 								"2560x1440":Vector2(2560, 1440),
 								"1920x1200":Vector2(1920, 1200),
@@ -12,4 +15,13 @@ var Resolutions : Dictionary = {
 								"800x600":Vector2(800, 600),
 								"640x480":Vector2(640, 480)
 							   }
+func _ready():
+	var screenSize = DisplayServer.screen_get_size()
+	Resolutions["%dx%d" % [screenSize.x, screenSize.y]] = screenSize
+	for item in Resolutions:
+		option_button.add_item(item)
 
+func _on_option_button_item_selected(index):
+	DisplayServer.window_set_size(Resolutions[option_button.get_item_text(index)])
+	get_window().content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
+	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT

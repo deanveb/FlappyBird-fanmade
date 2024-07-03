@@ -25,3 +25,7 @@ func _on_back_button_down():
 	get_node(GlobalSetting.MenuStack[GlobalSetting.MenuStack.size() - 1]).hide()
 	get_node(GlobalSetting.MenuStack[GlobalSetting.MenuStack.size() - 2]).show()
 	GlobalSetting.MenuStack.pop_back()
+
+
+func _on_quit_button_down():
+	get_tree().quit()

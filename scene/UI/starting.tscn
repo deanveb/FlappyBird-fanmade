@@ -71,7 +71,6 @@ menuName = "Menu"
 
 [node name="Menu" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
-visible = false
 scale = Vector2(1.5, 1.5)
 transform = Transform2D(1.5, 0, 0, 1.5, 0, 0)
 
@@ -113,6 +112,20 @@ theme_override_fonts/font = ExtResource("3_kfv16")
 theme_override_font_sizes/font_size = 14
 text = "Setting
 "
+
+[node name="Quit" type="Button" parent="Menu/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -70.3333
+offset_right = -34.3333
+offset_bottom = 22.0
+grow_horizontal = 0
+scale = Vector2(1.91045, 2.23693)
+theme_override_fonts/font = ExtResource("3_kfv16")
+theme_override_font_sizes/font_size = 14
+text = "Quit"
 
 [node name="Fade" type="AnimationPlayer" parent="Menu"]
 libraries = {
@@ -175,6 +188,7 @@ text = "Back"
 
 [node name="General" type="VBoxContainer" parent="Setting/Control"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -187,6 +201,15 @@ offset_right = 98.0
 offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Title" type="PanelContainer" parent="Setting/Control/General"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Setting/Control/General/Title"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "General"
+horizontal_alignment = 1
 
 [node name="Skin" type="HBoxContainer" parent="Setting/Control/General"]
 layout_mode = 2
@@ -214,27 +237,51 @@ texture_normal = ExtResource("5_5pwy8")
 texture_hover = ExtResource("12_rdadm")
 texture_disabled = ExtResource("12_rdadm")
 
-[node name="Resolution" type="HBoxContainer" parent="Setting/Control/General"]
-layout_mode = 2
-script = ExtResource("11_ka5wb")
-
-[node name="Label" type="Label" parent="Setting/Control/General/Resolution"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "Resolution"
-
-[node name="OptionButton" type="OptionButton" parent="Setting/Control/General/Resolution"]
-layout_mode = 2
-item_count = 1
-popup/item_0/text = ""
-popup/item_0/id = 0
-
 [node name="Back" type="Button" parent="Setting/Control/General"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Back"
 
+[node name="Graphic" type="VBoxContainer" parent="Setting/Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resolution" type="HBoxContainer" parent="Setting/Control/Graphic"]
+layout_mode = 2
+script = ExtResource("11_ka5wb")
+
+[node name="Label" type="Label" parent="Setting/Control/Graphic/Resolution"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Resolution"
+
+[node name="OptionButton" type="OptionButton" parent="Setting/Control/Graphic/Resolution"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+alignment = 1
+
+[node name="Back" type="Button" parent="Setting/Control/Graphic"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Back"
+
 [connection signal="button_down" from="Menu/Control/Setting" to="." method="_on_menu_button_down" binds= ["Main"]]
+[connection signal="button_down" from="Menu/Control/Quit" to="." method="_on_quit_button_down"]
 [connection signal="button_down" from="Setting/Control/Main/General" to="." method="_on_menu_button_down" binds= ["General"]]
+[connection signal="button_down" from="Setting/Control/Main/Graphic" to="." method="_on_menu_button_down" binds= ["Graphic"]]
 [connection signal="button_down" from="Setting/Control/Main/Back" to="." method="_on_back_button_down"]
 [connection signal="button_down" from="Setting/Control/General/Back" to="." method="_on_back_button_down"]
+[connection signal="item_selected" from="Setting/Control/Graphic/Resolution/OptionButton" to="Setting/Control/Graphic/Resolution" method="_on_option_button_item_selected"]
+[connection signal="button_down" from="Setting/Control/Graphic/Back" to="." method="_on_back_button_down"]

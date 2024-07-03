@@ -6,13 +6,23 @@ extends Node2D
 var score : int
 var screen_size := DisplayServer.window_get_size()
 #FIXME: Declare Func return type 
+var isFullScreen = false
 
-func _ready():
+func _ready() -> void:
 	UI_Node.get_node("Starting").show()
 	get_tree().call_group("game_over", "pause")
 
+func _process(delta) -> void:
+	if Input.is_action_just_pressed("Fullscreen"):
+		if !isFullScreen:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			isFullScreen = true
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			isFullScreen = false
+
 #new game
-func _unhandled_key_input(_event):
+func _unhandled_key_input(_event) -> void:
 	if Input.is_action_just_pressed("jump"):
 		$BackGroundHolder.get_node("Timer").start()
 		$PipeSpawnRate.start()
@@ -24,20 +34,20 @@ func _unhandled_key_input(_event):
 		$Ground.speed = 300
 		set_process_unhandled_key_input(false)
 
-func ChangeSkin(pipe : Node2D, newPipeTexture : Texture2D):
+func ChangeSkin(pipe : Node2D, newPipeTexture : Texture2D) -> void:
 	pipe.get_node("pipe1/Sprite2D").texture = newPipeTexture
 	pipe.get_node("pipe2/Sprite2D").texture = newPipeTexture
 	
 
 #pipe spawner
-func _on_timer_timeout():
+func _on_timer_timeout() -> void:
 	var pipe = pipe_scene.instantiate()
 	pipe.score_update.connect(_on_pipe_score_update)
 	pipe.position.x = screen_size.x + 10
 	add_child(pipe)
 
 #game over screen popup
-func _on_player_end_trigger():
+func _on_player_end_trigger() -> void:
 	var GameOverUI : Control = UI_Node.get_node("GameOver")
 	await GameOverUI.DeathAnimation()
 	%DeathSfx.play()
@@ -51,12 +61,12 @@ func _on_player_end_trigger():
 		SaveAndLoad.Save(content)
 	GameOverUI.updatetext(score, content["HighScore"])
 
-func _on_pipe_score_update():
+func _on_pipe_score_update() -> void:
 	%Scored.play()
 	score += 1
 	$UI/Score/score_counter/score_display.text = "%d" % [score]
 
-func _on_game_over_set_process():
+func _on_game_over_set_process() -> void:
 	set_process_unhandled_key_input(true)
 	score = 0
 	$UI/Score/score_counter/score_display.text = "%d" % [score]
