@@ -90,5 +90,5 @@ horizontal_alignment = 1
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(650, 100)
 
-[connection signal="timeout" from="PipeSpawnRate" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="PipeSpawnRate" to="." method="_on_pipe_spawn_rate_timeout"]
 [connection signal="set_process" from="UI/GameOver" to="." method="_on_game_over_set_process"]

@@ -12,6 +12,7 @@ size = Vector2(46, 317)
 
 [node name="Node2D" type="Node2D" groups=["game_over"]]
 z_index = -1
+position = Vector2(1026, 487)
 script = ExtResource("1_k5lji")
 
 [node name="pipe1" type="StaticBody2D" parent="."]

@@ -8,7 +8,6 @@ signal set_process
 
 var corpseScene := preload("res://scene/Game Object/PlayerCorpse.tscn")
 
-#FIXME: Corpse cant spawn
 func DeathAnimation():
 	get_node("../Flash").show()
 	get_node("../Flash").get_node("AnimationPlayer").play("Fade")

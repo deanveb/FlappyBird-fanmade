@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var menuName : String
-
+#FIXME: bug: start game while in setting menu
 func _ready():
 	GlobalSetting.MenuStack.push_back("%" + menuName)
 
