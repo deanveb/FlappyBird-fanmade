@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b102andxmcl07"]
+[gd_scene load_steps=18 format=3 uid="uid://b102andxmcl07"]
 
 [ext_resource type="Script" path="res://scripts/UI/starting.gd" id="1_h8j7t"]
 [ext_resource type="Texture2D" uid="uid://rgkufulbnacp" path="res://flappy-bird-assets-1.1.0/sprites/UI/message.png" id="2_y43cr"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dqno5a2glpj88" path="res://flappy-bird-assets-1.1.0/sprites/Character/yellowbird-upflap.png" id="7_erwer"]
 [ext_resource type="Texture2D" uid="uid://b8gvtb7bolek1" path="res://flappy-bird-assets-1.1.0/sprites/Character/bluebird-upflap-with-outline.png" id="9_ybuxn"]
 [ext_resource type="Script" path="res://scripts/UI/Resolution.gd" id="11_ka5wb"]
+[ext_resource type="Script" path="res://scene/UI/FPSCap.gd" id="12_erxw7"]
 [ext_resource type="Texture2D" uid="uid://bna63gkf05l1j" path="res://flappy-bird-assets-1.1.0/sprites/Character/redbird-upflap-with-outline.png" id="12_rdadm"]
 
 [sub_resource type="Animation" id="Animation_4cbwv"]
@@ -64,6 +65,8 @@ _data = {
 "fadeIn": SubResource("Animation_esnua"),
 "fadeOut": SubResource("Animation_x7vhl")
 }
+
+[sub_resource type="Theme" id="Theme_2meow"]
 
 [node name="Starting" type="Node2D"]
 script = ExtResource("1_h8j7t")
@@ -145,7 +148,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Main" type="VBoxContainer" parent="Setting/Control"]
+[node name="Main" type="PanelContainer" parent="Setting/Control"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -155,38 +158,41 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -49.5
-offset_top = -37.0
+offset_top = -50.0
 offset_right = 49.5
-offset_bottom = 37.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Setting/Control/Main"]
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="General" type="Button" parent="Setting/Control/Main"]
+[node name="General" type="Button" parent="Setting/Control/Main/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_kfv16")
 theme_override_font_sizes/font_size = 14
 text = "General"
 
-[node name="Graphic" type="Button" parent="Setting/Control/Main"]
+[node name="Graphic" type="Button" parent="Setting/Control/Main/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_kfv16")
 theme_override_font_sizes/font_size = 14
 text = "Graphic"
 
-[node name="Music&Sound" type="Button" parent="Setting/Control/Main"]
+[node name="Music&Sound" type="Button" parent="Setting/Control/Main/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_kfv16")
 theme_override_font_sizes/font_size = 14
 text = "Music&Sound"
 
-[node name="Back" type="Button" parent="Setting/Control/Main"]
+[node name="Back" type="Button" parent="Setting/Control/Main/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Back"
 
-[node name="General" type="VBoxContainer" parent="Setting/Control"]
+[node name="General" type="PanelContainer" parent="Setting/Control"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -195,54 +201,57 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -98.0
-offset_top = -37.0
-offset_right = 98.0
-offset_bottom = 37.0
+offset_left = -99.0
+offset_top = -35.0
+offset_right = 99.0
+offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Title" type="PanelContainer" parent="Setting/Control/General"]
+[node name="VBoxContainer1" type="VBoxContainer" parent="Setting/Control/General"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Setting/Control/General/Title"]
+[node name="Title" type="PanelContainer" parent="Setting/Control/General/VBoxContainer1"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Setting/Control/General/VBoxContainer1/Title"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "General"
 horizontal_alignment = 1
 
-[node name="Skin" type="HBoxContainer" parent="Setting/Control/General"]
+[node name="Skin" type="HBoxContainer" parent="Setting/Control/General/VBoxContainer1"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Setting/Control/General/Skin"]
+[node name="Label" type="Label" parent="Setting/Control/General/VBoxContainer1/Skin"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Change Skin"
 
-[node name="YellowBird" parent="Setting/Control/General/Skin" instance=ExtResource("6_o1nd3")]
+[node name="YellowBird" parent="Setting/Control/General/VBoxContainer1/Skin" instance=ExtResource("6_o1nd3")]
 layout_mode = 2
 texture_normal = ExtResource("7_erwer")
 texture_hover = ExtResource("7_3nkyq")
 texture_disabled = ExtResource("7_3nkyq")
 
-[node name="BlueBird" parent="Setting/Control/General/Skin" instance=ExtResource("6_o1nd3")]
+[node name="BlueBird" parent="Setting/Control/General/VBoxContainer1/Skin" instance=ExtResource("6_o1nd3")]
 layout_mode = 2
 texture_normal = ExtResource("4_lv0cw")
 texture_hover = ExtResource("9_ybuxn")
 texture_disabled = ExtResource("9_ybuxn")
 
-[node name="RedBird" parent="Setting/Control/General/Skin" instance=ExtResource("6_o1nd3")]
+[node name="RedBird" parent="Setting/Control/General/VBoxContainer1/Skin" instance=ExtResource("6_o1nd3")]
 layout_mode = 2
 texture_normal = ExtResource("5_5pwy8")
 texture_hover = ExtResource("12_rdadm")
 texture_disabled = ExtResource("12_rdadm")
 
-[node name="Back" type="Button" parent="Setting/Control/General"]
+[node name="Back" type="Button" parent="Setting/Control/General/VBoxContainer1"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Back"
 
-[node name="Graphic" type="VBoxContainer" parent="Setting/Control"]
+[node name="Graphic" type="PanelContainer" parent="Setting/Control"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -251,37 +260,60 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -60.5
+offset_top = -36.0
+offset_right = 60.5
+offset_bottom = 36.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Resolution" type="HBoxContainer" parent="Setting/Control/Graphic"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Setting/Control/Graphic"]
+layout_mode = 2
+
+[node name="Resolution" type="HBoxContainer" parent="Setting/Control/Graphic/VBoxContainer2"]
 layout_mode = 2
 script = ExtResource("11_ka5wb")
 
-[node name="Label" type="Label" parent="Setting/Control/Graphic/Resolution"]
+[node name="Label" type="Label" parent="Setting/Control/Graphic/VBoxContainer2/Resolution"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Resolution"
 
-[node name="OptionButton" type="OptionButton" parent="Setting/Control/Graphic/Resolution"]
+[node name="OptionButton" type="OptionButton" parent="Setting/Control/Graphic/VBoxContainer2/Resolution"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 alignment = 1
 
-[node name="Back" type="Button" parent="Setting/Control/Graphic"]
+[node name="FPSCap" type="HBoxContainer" parent="Setting/Control/Graphic/VBoxContainer2"]
+layout_mode = 2
+script = ExtResource("12_erxw7")
+
+[node name="Label" type="Label" parent="Setting/Control/Graphic/VBoxContainer2/FPSCap"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "FPS cap"
+
+[node name="LineEdit" type="LineEdit" parent="Setting/Control/Graphic/VBoxContainer2/FPSCap"]
+layout_mode = 2
+focus_mode = 1
+theme = SubResource("Theme_2meow")
+theme_override_font_sizes/font_size = 14
+text = "60"
+placeholder_text = "60"
+max_length = 3
+select_all_on_focus = true
+
+[node name="Back" type="Button" parent="Setting/Control/Graphic/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Back"
 
 [connection signal="button_down" from="Menu/Control/Setting" to="." method="_on_menu_button_down" binds= ["Main"]]
 [connection signal="button_down" from="Menu/Control/Quit" to="." method="_on_quit_button_down"]
-[connection signal="button_down" from="Setting/Control/Main/General" to="." method="_on_menu_button_down" binds= ["General"]]
-[connection signal="button_down" from="Setting/Control/Main/Graphic" to="." method="_on_menu_button_down" binds= ["Graphic"]]
-[connection signal="button_down" from="Setting/Control/Main/Back" to="." method="_on_back_button_down"]
-[connection signal="button_down" from="Setting/Control/General/Back" to="." method="_on_back_button_down"]
-[connection signal="item_selected" from="Setting/Control/Graphic/Resolution/OptionButton" to="Setting/Control/Graphic/Resolution" method="_on_option_button_item_selected"]
-[connection signal="button_down" from="Setting/Control/Graphic/Back" to="." method="_on_back_button_down"]
+[connection signal="button_down" from="Setting/Control/Main/VBoxContainer/General" to="." method="_on_menu_button_down" binds= ["General"]]
+[connection signal="button_down" from="Setting/Control/Main/VBoxContainer/Graphic" to="." method="_on_menu_button_down" binds= ["Graphic"]]
+[connection signal="button_down" from="Setting/Control/Main/VBoxContainer/Back" to="." method="_on_back_button_down"]
+[connection signal="button_down" from="Setting/Control/General/VBoxContainer1/Back" to="." method="_on_back_button_down"]
+[connection signal="item_selected" from="Setting/Control/Graphic/VBoxContainer2/Resolution/OptionButton" to="Setting/Control/Graphic/VBoxContainer2/Resolution" method="_on_option_button_item_selected"]
+[connection signal="text_submitted" from="Setting/Control/Graphic/VBoxContainer2/FPSCap/LineEdit" to="Setting/Control/Graphic/VBoxContainer2/FPSCap" method="_on_line_edit_text_submitted"]
+[connection signal="button_down" from="Setting/Control/Graphic/VBoxContainer2/Back" to="." method="_on_back_button_down"]

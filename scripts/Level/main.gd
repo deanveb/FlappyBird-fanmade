@@ -58,7 +58,7 @@ func _on_player_end_trigger() -> void:
 	remove_child(pipe_spawnpoint)
 	GameOverUI.show()
 	var content : Dictionary = SaveAndLoad.Load()
-	if content["HighScore"] <= score:
+	if int(content["HighScore"]) <= score:
 		content["HighScore"] = score
 		SaveAndLoad.Save(content)
 	GameOverUI.updatetext(score, content["HighScore"])

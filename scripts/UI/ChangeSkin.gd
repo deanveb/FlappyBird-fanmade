@@ -12,7 +12,7 @@ func _on_pressed():
 			item.disabled = false
 			item.button_pressed = false
 	disabled = true
-	var content : Dictionary = SaveAndLoad.Load()
-	content["CurrentSkin"] = name.to_lower()
+	var content : Dictionary = {
+		"CurrentSkin" = name.to_lower()
+	}
 	SaveAndLoad.Save(content)
-	

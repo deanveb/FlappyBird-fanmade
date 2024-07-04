@@ -50,6 +50,7 @@ sprite_frames = SubResource("SpriteFrames_hd4p2")
 animation = &"Flying"
 
 [node name="player hurtbox" type="Area2D" parent="."]
+z_index = 2
 position = Vector2(-7.04458, -14.0921)
 collision_mask = 2
 
