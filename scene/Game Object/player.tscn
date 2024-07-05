@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4bvvbpy1du24"]
+[gd_scene load_steps=10 format=3 uid="uid://c4bvvbpy1du24"]
 
 [ext_resource type="Script" path="res://scripts/Level/player.gd" id="1_8jv06"]
 [ext_resource type="Texture2D" uid="uid://cvhnnwm8fhwub" path="res://flappy-bird-assets-1.1.0/spritesheet.png" id="2_td165"]
 [ext_resource type="AudioStream" uid="uid://cwxek8bntk186" path="res://flappy-bird-assets-1.1.0/audio/wing.ogg" id="3_qyvgr"]
+[ext_resource type="PackedScene" uid="uid://cpi0wpi5mx6jd" path="res://scene/component/hitbox_component.tscn" id="4_ha7kl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tp60e"]
 atlas = ExtResource("2_td165")
@@ -49,20 +50,11 @@ position = Vector2(-0.0445786, 0.907936)
 sprite_frames = SubResource("SpriteFrames_hd4p2")
 animation = &"Flying"
 
-[node name="player hurtbox" type="Area2D" parent="."]
-z_index = 2
-position = Vector2(-7.04458, -14.0921)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player hurtbox"]
-position = Vector2(7, 14.33)
-scale = Vector2(0.500168, 0.480581)
-shape = SubResource("RectangleShape2D_d4xld")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.0445786, 0.23793)
 scale = Vector2(0.434023, 0.332109)
 shape = SubResource("RectangleShape2D_d4xld")
+disabled = true
 
 [node name="Timer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -72,5 +64,12 @@ wait_time = 0.5
 unique_name_in_owner = true
 stream = ExtResource("3_qyvgr")
 
-[connection signal="area_entered" from="player hurtbox" to="." method="_on_player_hurtbox_area_entered"]
+[node name="hitbox_component" parent="." instance=ExtResource("4_ha7kl")]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox_component"]
+position = Vector2(-0.0445786, 0.23793)
+scale = Vector2(0.434023, 0.332109)
+shape = SubResource("RectangleShape2D_d4xld")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

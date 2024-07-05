@@ -39,8 +39,5 @@ func _physics_process(delta):
 	move_and_slide() 
 	global_position.y = clamp(global_position.y, bounds_uw, bounds_dw)
 
-func _on_player_hurtbox_area_entered(_area):
-	end_trigger.emit()
-
 func _on_timer_timeout():
 	start = true

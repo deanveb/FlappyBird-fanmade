@@ -28,7 +28,7 @@ func despawn():
 	$".".queue_free()
 
 func _on_score_count_area_entered(area):
-	if area.name == "player hurtbox":
+	if area.owner.name == "player":
 		score_update.emit()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():

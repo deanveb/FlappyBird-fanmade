@@ -3,8 +3,9 @@ extends Node2D
 @export var pipe_scene : PackedScene
 @export var player_scene : PackedScene
 @export var UI_Node : Control
-@onready var pipe_spawnpoint = preload("res://scene/Utilites/PipeSpawnpoint.tscn").instantiate()
 @onready var screen_size : Vector2 = DisplayServer.window_get_size()
+@onready var pipe_spawnpoint = preload("res://scene/Utilites/PipeSpawnpoint.tscn").instantiate()
+
 
 var score : int
 var isFullScreen = false
@@ -27,6 +28,7 @@ func SpawnPlayer() -> void:
 	var player = player_scene.instantiate()
 	player.position = %StartPosition.position
 	player.end_trigger.connect(_on_player_end_trigger)
+	player.end_trigger.connect(UI_Node.get_node("GameOver")._on_player_end_trigger)
 	add_child(player)
 
 func ActivatePipe() -> void:
@@ -49,19 +51,8 @@ func ChangeSkin(pipe : Node2D, newPipeTexture : Texture2D) -> void:
 
 #game over screen popup
 func _on_player_end_trigger() -> void:
-	var GameOverUI : Control = UI_Node.get_node("GameOver")
-	await GameOverUI.DeathAnimation()
-	%DeathSfx.play()
-	get_tree().call_group("game_over","pause")
-	$PipeSpawnRate.stop()
-	$player.queue_free()
 	remove_child(pipe_spawnpoint)
-	GameOverUI.show()
-	var content : Dictionary = SaveAndLoad.Load()
-	if int(content["HighScore"]) <= score:
-		content["HighScore"] = score
-		SaveAndLoad.Save(content)
-	GameOverUI.updatetext(score, content["HighScore"])
+	$PipeSpawnRate.stop()
 
 func _on_pipe_score_update() -> void:
 	%Scored.play()
@@ -72,7 +63,6 @@ func _on_game_over_set_process() -> void:
 	set_process_unhandled_key_input(true)
 	score = 0
 	$UI/Score/score_counter/score_display.text = "%d" % [score]
-
 
 func _on_pipe_spawn_rate_timeout():
 	var pipe = pipe_scene.instantiate()

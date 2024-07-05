@@ -1,14 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccpmaudfndxb2"]
+[gd_scene load_steps=6 format=3 uid="uid://ccpmaudfndxb2"]
 
 [ext_resource type="Script" path="res://scripts/Object/classicpipe.gd" id="1_k5lji"]
 [ext_resource type="Texture2D" uid="uid://bgnxnhymdvttc" path="res://flappy-bird-assets-1.1.0/sprites/Object/pipe-green.png" id="2_xh5h8"]
+[ext_resource type="PackedScene" uid="uid://cpv3cuhq8kpc1" path="res://scene/component/damage_component.tscn" id="3_75j3u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_81201"]
 size = Vector2(46, 317)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xmggi"]
 
-[node name="Node2D" type="Node2D" groups=["game_over"]]
+[node name="pipes" type="Node2D" groups=["game_over"]]
 z_index = -1
 position = Vector2(1026, 487)
 script = ExtResource("1_k5lji")
@@ -22,15 +23,6 @@ metadata/_edit_group_ = true
 position = Vector2(1, -305)
 scale = Vector2(3.72355, 0.906955)
 
-[node name="Area2D" type="Area2D" parent="pipe1"]
-z_index = 1
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="pipe1/Area2D"]
-position = Vector2(0, -0.5)
-scale = Vector2(1.5, 2)
-shape = SubResource("RectangleShape2D_81201")
-
 [node name="Sprite2D" type="Sprite2D" parent="pipe1"]
 visibility_layer = 512
 scale = Vector2(1.5, 2)
@@ -41,20 +33,18 @@ position = Vector2(0, -0.5)
 scale = Vector2(1.5, 2)
 shape = SubResource("RectangleShape2D_81201")
 
+[node name="damage_component" parent="pipe1" instance=ExtResource("3_75j3u")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pipe1/damage_component"]
+position = Vector2(0, -0.5)
+scale = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_81201")
+
 [node name="pipe2" type="RigidBody2D" parent="."]
 visibility_layer = 512
 position = Vector2(1300, -17)
 gravity_scale = 0.0
 metadata/_edit_group_ = true
-
-[node name="Area2D" type="Area2D" parent="pipe2"]
-z_index = 1
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="pipe2/Area2D"]
-position = Vector2(0, -0.5)
-scale = Vector2(1.5, 2)
-shape = SubResource("RectangleShape2D_81201")
 
 [node name="Sprite2D" type="Sprite2D" parent="pipe2"]
 visibility_layer = 512
@@ -63,6 +53,13 @@ texture = ExtResource("2_xh5h8")
 flip_v = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pipe2"]
+position = Vector2(0, -0.5)
+scale = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_81201")
+
+[node name="damage_component" parent="pipe2" instance=ExtResource("3_75j3u")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pipe2/damage_component"]
 position = Vector2(0, -0.5)
 scale = Vector2(1.5, 2)
 shape = SubResource("RectangleShape2D_81201")

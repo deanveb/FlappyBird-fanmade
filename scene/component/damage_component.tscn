@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://cpv3cuhq8kpc1"]
+
+[node name="damage_component" type="Area2D"]
+collision_layer = 2

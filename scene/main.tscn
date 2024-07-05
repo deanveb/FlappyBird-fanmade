@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cq56bsm2l8wlu"]
+[gd_scene load_steps=14 format=3 uid="uid://cq56bsm2l8wlu"]
 
 [ext_resource type="PackedScene" uid="uid://c4bvvbpy1du24" path="res://scene/Game Object/player.tscn" id="1_1eouo"]
 [ext_resource type="Script" path="res://scripts/Level/main.gd" id="1_yyca0"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://ivch7iw160v2" path="res://flappy-bird-assets-1.1.0/flappy-font.ttf" id="4_uxada"]
 [ext_resource type="PackedScene" uid="uid://c1g4oyvarrdw2" path="res://scene/Game Object/back_ground_holder.tscn" id="5_p2sil"]
 [ext_resource type="PackedScene" uid="uid://cwepmqv4w2a01" path="res://scene/Game Object/ground.tscn" id="7_88qd6"]
+[ext_resource type="AudioStream" uid="uid://bj11a7uridwbj" path="res://flappy-bird-assets-1.1.0/audio/die.ogg" id="8_p2et2"]
 [ext_resource type="AudioStream" uid="uid://bxw6sy8gnx8c1" path="res://flappy-bird-assets-1.1.0/audio/hit.ogg" id="10_eiab0"]
 [ext_resource type="PackedScene" uid="uid://n6wqbtqqyobo" path="res://scene/UI/flash.tscn" id="11_ket48"]
 [ext_resource type="AudioStream" uid="uid://cvugf0vevrj1d" path="res://flappy-bird-assets-1.1.0/audio/point.ogg" id="11_sr2xn"]
@@ -26,6 +27,9 @@ position = Vector2(576, 325)
 
 [node name="Ground" parent="." instance=ExtResource("7_88qd6")]
 
+[node name="ground_pos_y" type="Marker2D" parent="Ground"]
+position = Vector2(148, 544)
+
 [node name="Utilities" type="Node" parent="."]
 
 [node name="StartPosition" type="Marker2D" parent="Utilities"]
@@ -36,13 +40,15 @@ position = Vector2(576, 395)
 
 [node name="Audio" type="Node" parent="."]
 
-[node name="DeathSfx" type="AudioStreamPlayer2D" parent="Audio"]
-unique_name_in_owner = true
-stream = ExtResource("10_eiab0")
-
 [node name="Scored" type="AudioStreamPlayer2D" parent="Audio"]
 unique_name_in_owner = true
 stream = ExtResource("11_sr2xn")
+
+[node name="DeathSfx" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("10_eiab0")
+
+[node name="death_fall" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("8_p2et2")
 
 [node name="UI" type="Control" parent="."]
 process_mode = 3
@@ -88,7 +94,7 @@ text = "0"
 horizontal_alignment = 1
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(650, 100)
+position = Vector2(58, 51)
 
 [connection signal="timeout" from="PipeSpawnRate" to="." method="_on_pipe_spawn_rate_timeout"]
 [connection signal="set_process" from="UI/GameOver" to="." method="_on_game_over_set_process"]
