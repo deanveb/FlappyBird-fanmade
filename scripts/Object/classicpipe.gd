@@ -23,7 +23,7 @@ func _process(delta):
 	$pipe2.global_position.x = $pipe1.global_position.x
 func pause():
 	speed = 0
-	
+
 func despawn():
 	$".".queue_free()
 

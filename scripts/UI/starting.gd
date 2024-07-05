@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var menuName : String
-#FIXME: bug: start game while in setting menu
+
 func _ready():
 	GlobalSetting.MenuStack.push_back("%" + menuName)
 
@@ -29,3 +29,10 @@ func _on_back_button_down():
 
 func _on_quit_button_down():
 	get_tree().quit()
+
+#To prevent starting the game on setting menu
+func _on_setting_button_down():
+	owner.set_process_unhandled_key_input(false)
+
+func _on_back_button_enable_start_game():
+	owner.set_process_unhandled_key_input(true)
