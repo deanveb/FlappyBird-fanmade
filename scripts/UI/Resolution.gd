@@ -25,3 +25,4 @@ func _on_option_button_item_selected(index):
 	DisplayServer.window_set_size(Resolutions[option_button.get_item_text(index)])
 	get_window().content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
 	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
+	

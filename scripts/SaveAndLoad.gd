@@ -1,29 +1,17 @@
 extends Node
-@export var path : String = "user://savegame.json"
+@export var path : String = "user://savegame.tres"
 
 #FIXME: can't use await
-func Save(content : Dictionary) -> void:
-	var data : Dictionary
-	if !FileAccess.file_exists(path):
-		data = content
-	else:
-		data = Load()
-		data.merge(content, true)
-	var file = FileAccess.open(path, FileAccess.WRITE)
-	var json : String = JSON.stringify(data)
-	file.store_string(json)
-	file.close()
+#FIXME: add backward compatible
+func Save(content : SavedData) -> void:
+	ResourceSaver.save(content, path)
 
-func Load() -> Dictionary:
-	#must add new settings if there's more var to save
+func Load() -> SavedData:
 	if !FileAccess.file_exists(path):
-		var settings : Dictionary
-		settings["HighScore"] = 0
-		settings["CurrentSkin"] = "yellowbird"
-		settings["FPSCap"] = 60
-		Save(settings)
-	var file = FileAccess.open(path, FileAccess.READ)
-	var json : String = file.get_as_text()
-	var content : Dictionary = JSON.parse_string(json)
-	file.close()
-	return content
+		var data : SavedData = SavedData.new()
+		data.current_skin = "yellowbird"
+		data.FPSCap = 60
+		data.high_score = 0
+		Save(data)
+	var data : SavedData = load(path) as SavedData
+	return data

@@ -11,5 +11,7 @@ func _ready():
 func _on_line_edit_text_submitted(new_text):
 	line_edit.release_focus()
 	Engine.max_fps = int(new_text)
-	SaveAndLoad.Save({"FPSCap" : int(new_text)})
+	var data : SavedData = SaveAndLoad.Load() as SavedData
+	data.FPSCap = int(new_text)
+	SaveAndLoad.Save(data)
 	line_edit.placeholder_text = new_text

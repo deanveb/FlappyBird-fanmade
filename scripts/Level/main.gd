@@ -6,6 +6,7 @@ extends Node2D
 @onready var screen_size : Vector2 = DisplayServer.window_get_size()
 @onready var pipe_spawnpoint = preload("res://scene/Utilites/PipeSpawnpoint.tscn").instantiate()
 
+#FIXME : 
 
 var score : int
 var isFullScreen = false
@@ -54,9 +55,9 @@ func _on_player_end_trigger() -> void:
 	remove_child(pipe_spawnpoint)
 	$PipeSpawnRate.stop()
 
-func _on_pipe_score_update() -> void:
+func _on_pipe_score_update(value : int) -> void:
 	%Scored.play()
-	score += 1
+	score += value
 	$UI/Score/score_counter/score_display.text = "%d" % [score]
 
 func _on_game_over_set_process() -> void:
@@ -66,7 +67,7 @@ func _on_game_over_set_process() -> void:
 
 func _on_pipe_spawn_rate_timeout():
 	var pipe = pipe_scene.instantiate()
-	pipe.score_update.connect(_on_pipe_score_update)
+	pipe.score_update.connect(_on_pipe_score_update.bind(2))
 	pipe.position.x = screen_size.x + 53
 	pipe.center_height = pipe_spawnpoint.get_node("Path2D/PathFollow2D").global_position.y
 	add_child(pipe)

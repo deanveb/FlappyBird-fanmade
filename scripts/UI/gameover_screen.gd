@@ -20,8 +20,8 @@ func DeathAnimation() -> void:
 	print(corpse.global_position.y, " ", ground_pos_y.global_position.y)
 	if corpse.global_position.y +20 < ground_pos_y.global_position.y:
 		death_fall.play()
-	var content : Dictionary = SaveAndLoad.Load()
-	var path : String = "res://flappy-bird-assets-1.1.0/sprites/Character/%s-midflap.png" % [content["CurrentSkin"]]
+	var content : SavedData = SaveAndLoad.Load() as SavedData
+	var path : String = "res://flappy-bird-assets-1.1.0/sprites/Character/%s-midflap.png" % [content.current_skin]
 	corpse.get_node("Sprite2D").texture = load(path)
 	get_node("..").call_deferred("add_child",corpse)
 
@@ -42,8 +42,8 @@ func _on_player_end_trigger() -> void:
 	DeathAnimation()
 	get_tree().call_group("game_over","pause")
 	show()
-	var content : Dictionary = SaveAndLoad.Load()
-	if int(content["HighScore"]) <= owner.score:
-		content["HighScore"] = owner.score
+	var content : SavedData = SaveAndLoad.Load() as SavedData
+	if int(content.high_score) <= owner.score:
+		content.high_score = owner.score
 		SaveAndLoad.Save(content)
-	updatetext(owner.score, content["HighScore"])
+	updatetext(owner.score, content.high_score)

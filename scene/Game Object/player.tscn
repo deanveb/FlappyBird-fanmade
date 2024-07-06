@@ -73,3 +73,4 @@ scale = Vector2(0.434023, 0.332109)
 shape = SubResource("RectangleShape2D_d4xld")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="hitbox_component" to="." method="_on_hitbox_component_area_entered"]

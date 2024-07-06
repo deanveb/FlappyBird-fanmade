@@ -9,8 +9,8 @@ var start : bool
 var gravity = 800
 
 func _ready():
-	var content : Dictionary = SaveAndLoad.Load()
-	var path : String = "res://flappy-bird-assets-1.1.0/animation/%s.tres" % [content["CurrentSkin"]]
+	var content : SavedData = SaveAndLoad.Load() as SavedData
+	var path : String = "res://flappy-bird-assets-1.1.0/animation/%s.tres" % [content.current_skin]
 	%AnimatedSprite2D.sprite_frames = load(path)
 	%AnimatedSprite2D.play("Flying")
 	start = false
@@ -41,3 +41,7 @@ func _physics_process(delta):
 
 func _on_timer_timeout():
 	start = true
+
+func _on_hitbox_component_area_entered(area):
+	end_trigger.emit()
+	queue_free()
