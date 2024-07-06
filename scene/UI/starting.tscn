@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://b102andxmcl07"]
+[gd_scene load_steps=19 format=3 uid="uid://b102andxmcl07"]
 
 [ext_resource type="Script" path="res://scripts/UI/starting.gd" id="1_h8j7t"]
 [ext_resource type="Texture2D" uid="uid://rgkufulbnacp" path="res://flappy-bird-assets-1.1.0/sprites/UI/message.png" id="2_y43cr"]
 [ext_resource type="FontFile" uid="uid://ivch7iw160v2" path="res://flappy-bird-assets-1.1.0/flappy-font.ttf" id="3_kfv16"]
+[ext_resource type="Script" path="res://scene/UI/data_reset.gd" id="4_6yx5c"]
 [ext_resource type="Texture2D" uid="uid://cywe3q7g50br4" path="res://flappy-bird-assets-1.1.0/sprites/Character/bluebird-upflap.png" id="4_lv0cw"]
 [ext_resource type="Texture2D" uid="uid://bheot2ibcaj73" path="res://flappy-bird-assets-1.1.0/sprites/Character/redbird-upflap.png" id="5_5pwy8"]
 [ext_resource type="PackedScene" uid="uid://dboxll6pkgpyh" path="res://scene/UI/ChangeSkin.tscn" id="6_o1nd3"]
@@ -187,6 +188,12 @@ theme_override_fonts/font = ExtResource("3_kfv16")
 theme_override_font_sizes/font_size = 14
 text = "Music&Sound"
 
+[node name="data_reset" type="Button" parent="Setting/Control/Main/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "reset data"
+script = ExtResource("4_6yx5c")
+
 [node name="Back" type="Button" parent="Setting/Control/Main/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
@@ -313,6 +320,7 @@ text = "Back"
 [connection signal="button_down" from="Menu/Control/Quit" to="." method="_on_quit_button_down"]
 [connection signal="button_down" from="Setting/Control/Main/VBoxContainer/General" to="." method="_on_menu_button_down" binds= ["General"]]
 [connection signal="button_down" from="Setting/Control/Main/VBoxContainer/Graphic" to="." method="_on_menu_button_down" binds= ["Graphic"]]
+[connection signal="button_down" from="Setting/Control/Main/VBoxContainer/data_reset" to="Setting/Control/Main/VBoxContainer/data_reset" method="_on_button_down"]
 [connection signal="button_down" from="Setting/Control/Main/VBoxContainer/Back" to="." method="_on_back_button_enable_start_game"]
 [connection signal="button_down" from="Setting/Control/Main/VBoxContainer/Back" to="." method="_on_back_button_down"]
 [connection signal="button_down" from="Setting/Control/General/VBoxContainer1/Back" to="." method="_on_back_button_down"]
