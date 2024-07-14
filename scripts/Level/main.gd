@@ -5,6 +5,7 @@ extends Node2D
 @export var UI_Node : Control
 @onready var screen_size : Vector2 = DisplayServer.window_get_size()
 @onready var pipe_spawnpoint = preload("res://scene/Utilites/PipeSpawnpoint.tscn").instantiate()
+@onready var title_theme = $"Audio/title theme"
 
 #FIXME : 
 
@@ -39,6 +40,8 @@ func ActivatePipe() -> void:
 #new game
 func _unhandled_key_input(_event) -> void:
 	if Input.is_action_just_pressed("jump"):
+		title_theme.stop()
+		$"Audio/theme song".play()
 		$BackGroundHolder.get_node("Timer").start()
 		ActivatePipe()
 		UI_Node.get_node("Starting")._hide()
@@ -57,7 +60,7 @@ func _on_player_end_trigger() -> void:
 
 func _on_pipe_score_update(value : int) -> void:
 	%Scored.play()
-	score += value
+	score += 1
 	$UI/Score/score_counter/score_display.text = "%d" % [score]
 
 func _on_game_over_set_process() -> void:

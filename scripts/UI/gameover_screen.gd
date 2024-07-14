@@ -8,12 +8,15 @@ signal set_process
 @onready var ground_pos_y = $"../../Ground/ground_pos_y"
 @onready var death_sfx = $"../../Audio/DeathSfx"
 @onready var death_fall = $"../../Audio/death_fall"
+@onready var title_theme = $"../../Audio/title theme"
 
 var corpseScene := preload("res://scene/Game Object/PlayerCorpse.tscn")
 
 func DeathAnimation() -> void:
 	get_node("../Flash").show()
 	get_node("../Flash").get_node("AnimationPlayer").play("Fade")
+	$"../../Audio/theme song".stop()
+	title_theme.play()
 	var corpse = corpseScene.instantiate()
 	corpse.global_position = owner.get_node("player").global_position
 	death_sfx.play()

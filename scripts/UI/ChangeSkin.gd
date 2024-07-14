@@ -1,5 +1,7 @@
 extends TextureButton
 
+@onready var button_sound = $"../../../../../../ButtonSound"
+
 func _ready():
 	var content : SavedData = SaveAndLoad.Load() as SavedData
 	if content.current_skin == name.to_lower():
@@ -7,6 +9,7 @@ func _ready():
 		disabled = true
 
 func _on_pressed():
+	button_sound.play()
 	for item in get_parent().get_children():
 		if item is TextureButton:
 			item.disabled = false

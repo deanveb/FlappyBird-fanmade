@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://b102andxmcl07"]
+[gd_scene load_steps=20 format=3 uid="uid://b102andxmcl07"]
 
 [ext_resource type="Script" path="res://scripts/UI/starting.gd" id="1_h8j7t"]
+[ext_resource type="AudioStream" uid="uid://crn5jktiefbme" path="res://flappy-bird-assets-1.1.0/220212__gameaudio__ping-bing.wav" id="2_2tw0q"]
 [ext_resource type="Texture2D" uid="uid://rgkufulbnacp" path="res://flappy-bird-assets-1.1.0/sprites/UI/message.png" id="2_y43cr"]
 [ext_resource type="FontFile" uid="uid://ivch7iw160v2" path="res://flappy-bird-assets-1.1.0/flappy-font.ttf" id="3_kfv16"]
 [ext_resource type="Script" path="res://scene/UI/data_reset.gd" id="4_6yx5c"]
@@ -72,6 +73,9 @@ _data = {
 [node name="Starting" type="Node2D"]
 script = ExtResource("1_h8j7t")
 menuName = "Menu"
+
+[node name="ButtonSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_2tw0q")
 
 [node name="Menu" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -183,6 +187,7 @@ theme_override_font_sizes/font_size = 14
 text = "Graphic"
 
 [node name="Music&Sound" type="Button" parent="Setting/Control/Main/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_kfv16")
 theme_override_font_sizes/font_size = 14
@@ -324,6 +329,7 @@ text = "Back"
 [connection signal="button_down" from="Setting/Control/Main/VBoxContainer/Back" to="." method="_on_back_button_enable_start_game"]
 [connection signal="button_down" from="Setting/Control/Main/VBoxContainer/Back" to="." method="_on_back_button_down"]
 [connection signal="button_down" from="Setting/Control/General/VBoxContainer1/Back" to="." method="_on_back_button_down"]
+[connection signal="button_down" from="Setting/Control/Graphic/VBoxContainer2/Resolution/OptionButton" to="Setting/Control/Graphic/VBoxContainer2/Resolution" method="_on_option_button_button_down"]
 [connection signal="item_selected" from="Setting/Control/Graphic/VBoxContainer2/Resolution/OptionButton" to="Setting/Control/Graphic/VBoxContainer2/Resolution" method="_on_option_button_item_selected"]
 [connection signal="text_submitted" from="Setting/Control/Graphic/VBoxContainer2/FPSCap/LineEdit" to="Setting/Control/Graphic/VBoxContainer2/FPSCap" method="_on_line_edit_text_submitted"]
 [connection signal="button_down" from="Setting/Control/Graphic/VBoxContainer2/Back" to="." method="_on_back_button_down"]

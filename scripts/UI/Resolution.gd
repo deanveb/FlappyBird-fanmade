@@ -2,6 +2,8 @@ extends HBoxContainer
 
 #FIXME: drop menu font, fullscreen resolution
 @onready var option_button = $OptionButton
+@onready var button_sound = $"../../../../../ButtonSound"
+
 var Resolutions : Dictionary = {
 								"2560x1440":Vector2(2560, 1440),
 								"1920x1200":Vector2(1920, 1200),
@@ -26,3 +28,7 @@ func _on_option_button_item_selected(index):
 	get_window().content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
 	get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	
+
+
+func _on_option_button_button_down():
+	button_sound.play()

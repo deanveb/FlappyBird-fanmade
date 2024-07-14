@@ -63,6 +63,7 @@ wait_time = 0.5
 [node name="Jump" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_qyvgr")
+volume_db = -7.0
 
 [node name="hitbox_component" parent="." instance=ExtResource("4_ha7kl")]
 collision_mask = 2

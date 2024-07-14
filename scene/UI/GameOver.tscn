@@ -25,7 +25,7 @@ metadata/_edit_group_ = true
 [node name="ButtonSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("5_1qwcf")
-volume_db = 18.296
+volume_db = 5.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
